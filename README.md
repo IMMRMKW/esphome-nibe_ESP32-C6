@@ -1,0 +1,1 @@
+# esphome-nibe_ESP32-C6
