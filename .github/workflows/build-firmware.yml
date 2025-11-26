@@ -41,6 +41,7 @@ jobs:
           WIFI_SSID: ${{ github.event.inputs.wifi_ssid || 'YourSSID' }}
           WIFI_PASSWORD: ${{ github.event.inputs.wifi_password || 'YourPassword' }}
           HA_IP: ${{ github.event.inputs.ha_ip || '192.168.1.100' }}
+          PLATFORMIO_BOARDS_DIR: ${{ github.workspace }}/boards
         run: |
           esphome -s wifi_ssid "${WIFI_SSID}" -s wifi_password "${WIFI_PASSWORD}" -s ha_ip "${HA_IP}" compile config.yml
             
