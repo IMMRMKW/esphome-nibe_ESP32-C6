@@ -1,0 +1,50 @@
+name: Build ESPHome Firmware
+
+on:
+  workflow_dispatch:
+    inputs:
+      wifi_ssid:
+        description: 'Wi-Fi SSID'
+        required: true
+        default: 'YourSSID'
+      wifi_password:
+        description: 'Wi-Fi Password'
+        required: true
+        default: 'YourPassword'
+      ha_ip:
+        description: 'Home Assistant IP Address'
+        required: true
+        default: '192.168.1.100'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install ESPHome
+        run: pip install esphome
+        
+      - name: Compile firmware
+        run: |
+          esphome compile config.yml \
+            -s wifi_ssid="${{ github.event.inputs.wifi_ssid }}" \
+            -s wifi_password="${{ github.event.inputs.wifi_password }}" \
+            -s ha_ip="${{ github.event.inputs.ha_ip }}"
+            
+      - name: Upload firmware binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: espnibe-firmware
+          path: |
+            .esphome/build/espnibe/.pioenvs/espnibe/firmware.bin
+            .esphome/build/espnibe/.pioenvs/espnibe/firmware.elf
+          if-no-files-found: error
