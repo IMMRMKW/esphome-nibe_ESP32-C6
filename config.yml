@@ -9,6 +9,7 @@ esphome:
   friendly_name: NIBE_ESP
   platformio_options:
     board: "esp32-c6-devkitc-1"
+    board_dir: "boards"
     framework: "arduino"
     platform: https://github.com/platformio/platform-espressif32.git#develop
     lib_deps:
@@ -30,8 +31,8 @@ esphome:
      - -D USE_LOGGER_USB_SERIAL_JTAG=1
 
 esp32:
-  board: esp32-c3-devkitc-1
-  flash_size: 4MB
+  board: esp32-c6-devkitc-1
+  flash_size: 8MB
   variant: ESP32C6
   framework:
     type: arduino   
