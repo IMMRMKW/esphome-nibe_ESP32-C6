@@ -1,6 +1,9 @@
 name: Build ESPHome Firmware
 
 on:
+  push:
+    branches:
+      - github-compilation
   workflow_dispatch:
     inputs:
       wifi_ssid:
@@ -36,9 +39,9 @@ jobs:
       - name: Compile firmware
         run: |
           esphome compile config.yml \
-            -s wifi_ssid="${{ github.event.inputs.wifi_ssid }}" \
-            -s wifi_password="${{ github.event.inputs.wifi_password }}" \
-            -s ha_ip="${{ github.event.inputs.ha_ip }}"
+            -s wifi_ssid="${{ github.event.inputs.wifi_ssid || 'YourSSID' }}" \
+            -s wifi_password="${{ github.event.inputs.wifi_password || 'YourPassword' }}" \
+            -s ha_ip="${{ github.event.inputs.ha_ip || '192.168.1.100' }}"
             
       - name: Upload firmware binary
         uses: actions/upload-artifact@v4
