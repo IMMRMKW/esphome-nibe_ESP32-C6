@@ -1,6 +1,4 @@
 substitutions:
-  wifi_ssid: "YourSSID"  # Default value, can be overridden via --substitution flag
-  wifi_password: "YourPassword"  # Default value, can be overridden via --substitution flag
   ha_ip: "192.168.1.100"  # Default Home Assistant IP, can be overridden via --substitution flag
   api_key: "GENERATE_NEW_KEY"  # Default API key, should be overridden
 
@@ -8,7 +6,8 @@ esphome:
   name: espnibe
   friendly_name: NIBE_ESP
   platformio_options:
-    board: "esp32-c6-devkitc-1"
+    board: "elecram_esp32-c6"
+    board_dir: "boards"
     framework: "arduino"
     platform: https://github.com/platformio/platform-espressif32.git#develop
     lib_deps:
@@ -30,8 +29,8 @@ esphome:
      - -D USE_LOGGER_USB_SERIAL_JTAG=1
 
 esp32:
-  board: esp32-c6-devkitc-1
-  flash_size: 8MB
+  board: elecram_esp32-c6
+  flash_size: 4MB
   variant: ESP32C6
   framework:
     type: arduino   
@@ -63,10 +62,7 @@ ota:
 
 
 wifi:
-  ssid: ${wifi_ssid}
-  password: ${wifi_password}
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  # WiFi will be configured via captive portal on first boot
   ap:
     ssid: "espnibe"
     password: "bJhPXchn93Ux"
