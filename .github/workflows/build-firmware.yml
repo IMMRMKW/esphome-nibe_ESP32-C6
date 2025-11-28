@@ -28,15 +28,15 @@ jobs:
       - name: Install ESPHome
         run: pip install esphome
         
-      - name: Copy custom board file
+      - name: Setup custom board directory
         run: |
-          mkdir -p .esphome/build/espnibe/boards
-          cp boards/elecram_esp32-c6.json .esphome/build/espnibe/boards/
+          mkdir -p custom_boards
+          cp boards/elecram_esp32-c6.json custom_boards/
         
       - name: Compile firmware
         env:
           HA_IP: ${{ github.event.inputs.ha_ip || '192.168.1.100' }}
-          PLATFORMIO_BOARDS_DIR: ${{ github.workspace }}/.esphome/build/espnibe/boards
+          PLATFORMIO_BOARDS_DIR: ${{ github.workspace }}/custom_boards
         run: |
           esphome -s ha_ip "${HA_IP}" compile config.yml
             
