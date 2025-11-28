@@ -30,7 +30,7 @@ jobs:
           python-version: '3.11'
           
       - name: Install ESPHome
-        run: pip install esphome
+        run: pip install esphome==2025.2.2
         
       - name: Setup custom board directory
         run: |
