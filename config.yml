@@ -27,9 +27,12 @@ esphome:
     build_flags:
      - -D ARDUINO_USB_MODE=1
      - -D USE_LOGGER_USB_SERIAL_JTAG=1
+     - -D USE_ARDUINO
 
 esp32:
-  board: elecram_esp32-c6
+  platformio_options:
+    board: elecram_esp32-c6
+    framework: "arduino"
   flash_size: 4MB
   variant: ESP32C6
   framework:
