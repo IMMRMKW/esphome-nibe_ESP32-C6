@@ -38,6 +38,12 @@ jobs:
           ls -la ~/.platformio/boards/
           cat ~/.platformio/boards/elecram_esp32-c6.json
         
+      - name: Verify PlatformIO can see custom board
+        run: |
+          echo "🔍 Testing if PlatformIO recognizes the custom board..."
+          pip install platformio
+          platformio boards elecram_esp32-c6 || echo "⚠️ Board not found by PlatformIO!"
+        
       - name: Compile firmware
         env:
           HA_IP: ${{ github.event.inputs.ha_ip || '192.168.1.100' }}
