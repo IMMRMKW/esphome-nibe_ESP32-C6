@@ -30,17 +30,22 @@ jobs:
         
       - name: Setup custom board directory
         run: |
-          mkdir -p .esphome/build/espnibe/boards
-          cp boards/elecram_esp32-c6.json .esphome/build/espnibe/boards/
-          echo "Board file location:"
-          ls -la .esphome/build/espnibe/boards/
-          echo "PLATFORMIO_BOARDS_DIR will be set to: ${{ github.workspace }}/.esphome/build/espnibe"
+          # Create boards directory in HOME so PlatformIO finds it
+          mkdir -p ~/.platformio/boards
+          cp boards/elecram_esp32-c6.json ~/.platformio/boards/
+          echo "✅ Board file copied to: ~/.platformio/boards/"
+          echo "Board file content check:"
+          ls -la ~/.platformio/boards/
+          cat ~/.platformio/boards/elecram_esp32-c6.json
         
       - name: Compile firmware
         env:
           HA_IP: ${{ github.event.inputs.ha_ip || '192.168.1.100' }}
-          PLATFORMIO_BOARDS_DIR: ${{ github.workspace }}/.esphome/build/espnibe
         run: |
+          echo "🔍 Verifying board file before compile:"
+          echo "Board file location: ~/.platformio/boards/elecram_esp32-c6.json"
+          ls -la ~/.platformio/boards/elecram_esp32-c6.json
+          echo "Starting compilation..."
           esphome -s ha_ip "${HA_IP}" compile config.yml
       
       - name: Show build output location
