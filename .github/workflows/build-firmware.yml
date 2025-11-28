@@ -6,14 +6,6 @@ on:
       - github-compilation
   workflow_dispatch:
     inputs:
-      wifi_ssid:
-        description: 'Wi-Fi SSID'
-        required: true
-        default: 'YourSSID'
-      wifi_password:
-        description: 'Wi-Fi Password'
-        required: true
-        default: 'YourPassword'
       ha_ip:
         description: 'Home Assistant IP Address'
         required: true
@@ -39,16 +31,14 @@ jobs:
       - name: Copy custom board file
         run: |
           mkdir -p .esphome/build/espnibe/boards
-          cp boards/esp32-c6-devkitc-1.json .esphome/build/espnibe/boards/
+          cp boards/elecram_esp32-c6.json .esphome/build/espnibe/boards/
         
       - name: Compile firmware
         env:
-          WIFI_SSID: ${{ github.event.inputs.wifi_ssid || 'YourSSID' }}
-          WIFI_PASSWORD: ${{ github.event.inputs.wifi_password || 'YourPassword' }}
           HA_IP: ${{ github.event.inputs.ha_ip || '192.168.1.100' }}
           PLATFORMIO_BOARDS_DIR: ${{ github.workspace }}/.esphome/build/espnibe/boards
         run: |
-          esphome -s wifi_ssid "${WIFI_SSID}" -s wifi_password "${WIFI_PASSWORD}" -s ha_ip "${HA_IP}" compile config.yml
+          esphome -s ha_ip "${HA_IP}" compile config.yml
             
       - name: Upload firmware binary
         uses: actions/upload-artifact@v4
