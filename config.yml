@@ -31,10 +31,11 @@ esphome:
      - -D USE_ARDUINO
 
 esp32:
+  board: elecram_esp32-c6
   flash_size: 4MB
   variant: ESP32C6
   framework:
-    type: esp-idf 
+    type: arduino
 
 external_components:
   # - source: 
