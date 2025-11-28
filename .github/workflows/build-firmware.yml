@@ -82,4 +82,7 @@ jobs:
           path: |
             .esphome/build/espnibe/.pioenvs/espnibe/firmware.bin
             .esphome/build/espnibe/.pioenvs/espnibe/firmware.elf
-          if-no-files-found: error
+            .esphome/build/espnibe/.pioenvs/espnibe/firmware.factory.bin
+            .esphome/build/espnibe/.pioenvs/espnibe/bootloader.bin
+            .esphome/build/espnibe/.pioenvs/espnibe/partitions.bin
+          if-no-files-found: warn
