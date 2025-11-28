@@ -10,6 +10,9 @@ on:
         description: 'Home Assistant IP Address'
         required: true
         default: '192.168.1.100'
+      api_key:
+        description: 'API Encryption Key (base64, 32 bytes)'
+        required: true
 
 jobs:
   build:
@@ -55,12 +58,13 @@ jobs:
       - name: Compile firmware
         env:
           HA_IP: ${{ github.event.inputs.ha_ip || '192.168.1.100' }}
+          API_KEY: ${{ github.event.inputs.api_key }}
         run: |
           echo "🔍 Verifying board file before compile:"
           echo "Board file location: ~/.platformio/boards/elecram_esp32-c6.json"
           ls -la ~/.platformio/boards/elecram_esp32-c6.json
           echo "Starting compilation..."
-          esphome -s ha_ip "${HA_IP}" compile config.yml
+          esphome -s ha_ip "${HA_IP}" -s api_key "${API_KEY}" compile config.yml
       
       - name: Show build output location
         run: |
