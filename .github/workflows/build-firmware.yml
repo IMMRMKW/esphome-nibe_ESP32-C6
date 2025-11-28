@@ -42,7 +42,15 @@ jobs:
         run: |
           echo "🔍 Testing if PlatformIO recognizes the custom board..."
           pip install platformio
-          platformio boards elecram_esp32-c6 || echo "⚠️ Board not found by PlatformIO!"
+          set +e
+          platformio boards elecram_esp32-c6
+          BOARD_CHECK=$?
+          set -e
+          if [ $BOARD_CHECK -ne 0 ]; then
+            echo "⚠️ Board not found by PlatformIO! This is expected - ESPHome will use the board file directly."
+          else
+            echo "✅ Board found by PlatformIO!"
+          fi
         
       - name: Compile firmware
         env:
