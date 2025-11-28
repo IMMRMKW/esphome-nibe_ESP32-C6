@@ -29,8 +29,11 @@ jobs:
         with:
           python-version: '3.11'
           
-      - name: Install ESPHome
-        run: pip install esphome==2025.2.2
+      - name: Install ESPHome from repository
+        run: |
+          echo "Installing ESPHome from local submodule..."
+          pip install -e ./esphome
+          esphome version
         
       - name: Setup custom board directory
         run: |
