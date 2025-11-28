@@ -13,6 +13,7 @@ esphome:
     lib_deps:
       - "https://github.com/ESP32Async/AsyncTCP.git"
       - "https://github.com/ESP32Async/ESPAsyncWebServer.git"
+      - "https://github.com/iafonov/multipart-parser-c.git"
     lib_extra_dirs:
       - ".esphome\\build\\espnibe\\.piolibdeps\\AsyncTCP-esphome\\"
       - ".esphome\\build\\espnibe\\.piolibdeps\\ESPAsyncWebserver-esphome\\"
@@ -30,13 +31,10 @@ esphome:
      - -D USE_ARDUINO
 
 esp32:
-  platformio_options:
-    board: elecram_esp32-c6
-    framework: "arduino"
   flash_size: 4MB
   variant: ESP32C6
   framework:
-    type: esp-idf  
+    type: esp-idf 
 
 external_components:
   # - source: 
