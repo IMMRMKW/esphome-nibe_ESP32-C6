@@ -11,13 +11,20 @@ There are two ways to install the firmware on the board. If you are familiar wit
 2. Install the local version of ESPHome using the instructions found in [my other repository](https://github.com/IMMRMKW/ESPHome_ESP32-C6).
 3. Copy the boards folder to `.esphome\build\espnibe`
 4. Generate a new home assistant api key [here](https://esphome.io/components/api/)
-5. Compile and upload the firmware using:
- - `esphome -s ha_ip "<your_ha_ip>" -s api_key "<your_api_key>" run config.yml --device COM<number>`, on Windows.
- - `esphome -s ha_ip "your_ha_ip" -s api_key "Hcbp/oa8VWQlhAf43Wk14DNFKqqNPyOP2ZOKlPQNpNg=" run config.yml --device /dev/ttyACM<number>`, on Linux.
-Here:
-- `<your_ha_ip>` should be replaced by your Home Assistant's IP address, e.g., `192.168.1.100`.
-- `<your_api_key>` should be replaced by the api key generated in step 4, e.g., `Hcbp/oa8VWQlhAf43Wk14DNFKqqNPyOP2ZOKlPQNpNg=`.
-- `<number>` should be replaced by the actual device number.
+5. Compile and upload the firmware:
+   - On Windows:
+     ```
+     esphome -s ha_ip "<your_ha_ip>" -s api_key "<your_api_key>" run config.yml --device COM<number>
+     ```
+   - On Linux:
+     ```
+     esphome -s ha_ip "your_ha_ip" -s api_key "<your_api_key>" run config.yml --device /dev/ttyACM<number>
+     ```
+   
+   Replace the following:
+   - `<your_ha_ip>` with your Home Assistant's IP address, e.g., `192.168.1.100`
+   - `<your_api_key>` with the api key generated in step 4, e.g., `Hcbp/oa8VWQlhAf43Wk14DNFKqqNPyOP2ZOKlPQNpNg=`
+   - `<number>` with the actual device number
 
 ### Option 2
 
@@ -33,8 +40,17 @@ Build firmware with your custom Home Assistant IP and API key:
 
 Note: You need write access to this repository to trigger builds. Alternatively, fork the repository to build on your own account.
 
+**How to run the workflow:**
+
 <img src="images/run_workflow.png" alt="Run workflow" width="50%"/>
+
+Click the "Run workflow" button, enter your Home Assistant IP and API key, then click the green "Run workflow" button to start the build.
+
+**How to download the artifact:**
+
 <img src="images/download.png" alt="Download artifact" width="50%"/>
+
+After the workflow completes, scroll down to the "Artifacts" section and click on the artifact name to download the firmware file.
 
 #### Flashing the Firmware
 
