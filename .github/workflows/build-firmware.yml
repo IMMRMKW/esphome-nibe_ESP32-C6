@@ -29,60 +29,31 @@ jobs:
         with:
           python-version: '3.11'
           
-      - name: Install ESPHome from repository
-        run: |
-          echo "Installing ESPHome from local submodule..."
-          pip install -e ./esphome
-          esphome version
+      - name: Install ESPHome
+        run: pip install -e ./esphome
         
-      - name: Setup custom board directory
+      - name: Setup custom board
         run: |
-          # Create boards directory in HOME so PlatformIO finds it
           mkdir -p ~/.platformio/boards
           cp boards/elecram_esp32-c6.json ~/.platformio/boards/
-          echo "✅ Board file copied to: ~/.platformio/boards/"
-          echo "Board file content check:"
-          ls -la ~/.platformio/boards/
-          cat ~/.platformio/boards/elecram_esp32-c6.json
-        
-      - name: Verify PlatformIO can see custom board
-        run: |
-          echo "🔍 Testing if PlatformIO recognizes the custom board..."
-          pip install platformio
-          set +e
-          platformio boards elecram_esp32-c6
-          BOARD_CHECK=$?
-          set -e
-          if [ $BOARD_CHECK -ne 0 ]; then
-            echo "⚠️ Board not found by PlatformIO! This is expected - ESPHome will use the board file directly."
-          else
-            echo "✅ Board found by PlatformIO!"
-          fi
         
       - name: Compile firmware
         env:
           HA_IP: ${{ github.event.inputs.ha_ip || '192.168.1.100' }}
           API_KEY: ${{ github.event.inputs.api_key }}
-        run: |
-          echo "🔍 Verifying board file before compile:"
-          echo "Board file location: ~/.platformio/boards/elecram_esp32-c6.json"
-          ls -la ~/.platformio/boards/elecram_esp32-c6.json
-          echo "Starting compilation..."
-          esphome -s ha_ip "${HA_IP}" -s api_key "${API_KEY}" compile config.yml
+        run: esphome -s ha_ip "${HA_IP}" -s api_key "${API_KEY}" compile config.yml
       
-      - name: Show build output location
-        run: |
-          echo "Build directory structure:"
-          ls -laR .esphome/build/espnibe/.pioenvs/ || echo "Build directory not found"
+      - name: Rename factory image
+        run: cp .esphome/build/espnibe/.pioenvs/espnibe/firmware.factory.bin .esphome/build/espnibe/.pioenvs/espnibe/nibe-esp32-c6.bin
             
       - name: Upload firmware binary
         uses: actions/upload-artifact@v4
         with:
           name: espnibe-firmware
           path: |
+            .esphome/build/espnibe/.pioenvs/espnibe/nibe-esp32-c6.bin
             .esphome/build/espnibe/.pioenvs/espnibe/firmware.bin
             .esphome/build/espnibe/.pioenvs/espnibe/firmware.elf
-            .esphome/build/espnibe/.pioenvs/espnibe/firmware.factory.bin
             .esphome/build/espnibe/.pioenvs/espnibe/bootloader.bin
             .esphome/build/espnibe/.pioenvs/espnibe/partitions.bin
           if-no-files-found: warn
