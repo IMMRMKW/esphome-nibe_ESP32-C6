@@ -50,6 +50,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: espnibe-firmware
+          retention-days: 1
           path: |
             .esphome/build/espnibe/.pioenvs/espnibe/nibe-esp32-c6.bin
             .esphome/build/espnibe/.pioenvs/espnibe/firmware.bin

@@ -33,6 +33,7 @@
 
 # files
 secrets.yaml
+*.code-workspace
 
 # folders
 __pycache__/

@@ -2,10 +2,53 @@
 
 This project aims to get [nibegw for ESPHome](https://github.com/elupus/esphome-nibe) working on the ESP32-C6. A custom board for this purpose is available for purchase [here](https://www.tindie.com/products/39346/).
 
-## Installing the Software
+## Installing the firmware
 
-For instructions on running ESPHome on an ESP32-C6, please refer to [my other repository](https://github.com/IMMRMKW/ESPHome_ESP32-C6).  
-This repository works similarly, but you should upload the YAML code found in `config.yml` here.
+There are two ways to install the firmware on the board. If you are familiar with working with ESPHome, you use Option 1, if you are not (or are feeling lazy), use Option 2.
+
+### Option 1
+1. Clone this repository
+2. Install the local version of ESPHome using the instructions found in [my other repository](https://github.com/IMMRMKW/ESPHome_ESP32-C6).
+3. Copy the boards folder to `.esphome\build\espnibe`
+4. Generate a new home assistant api key [here](https://esphome.io/components/api/)
+5. Compile and upload the firmware using:
+ - `esphome -s ha_ip "<your_ha_ip>" -s api_key "<your_api_key>" run config.yml --device COM<number>`, on Windows.
+ - `esphome -s ha_ip "your_ha_ip" -s api_key "Hcbp/oa8VWQlhAf43Wk14DNFKqqNPyOP2ZOKlPQNpNg=" run config.yml --device /dev/ttyACM<number>`, on Linux.
+Here:
+- `<your_ha_ip>` should be replaced by your Home Assistant's IP address, e.g., `192.168.1.100`.
+- `<your_api_key>` should be replaced by the api key generated in step 4, e.g., `Hcbp/oa8VWQlhAf43Wk14DNFKqqNPyOP2ZOKlPQNpNg=`.
+- `<number>` should be replaced by the actual device number.
+
+### Option 2
+
+#### Building Custom Firmware
+
+Build firmware with your custom Home Assistant IP and API key:
+
+1. Go to the [Actions tab](../../actions/workflows/build-firmware.yml) in this repository.
+2. Click "Run workflow".
+3. Enter your Home Assistant IP address and API encryption key. A new API encryption key can be generated [here](https://esphome.io/components/api/).
+4. Wait for the build to complete (this takes a few minutes).
+5. Download the artifact containing `nibe-esp32-c6.bin`.
+
+Note: You need write access to this repository to trigger builds. Alternatively, fork the repository to build on your own account.
+
+<img src="images/run_workflow.png" alt="Run workflow" width="50%"/>
+<img src="images/download.png" alt="Download artifact" width="50%"/>
+
+#### Flashing the Firmware
+
+Flash the firmware to your ESP32-C6 board using the ESPHome Web Flasher:
+
+1. Visit [web.esphome.io](https://web.esphome.io/)
+2. Click "Connect"
+3. Select your ESP32-C6's USB port
+4. Click "Install" and choose "Choose File"
+5. Select the `nibe-esp32-c6.bin` file
+6. Flash at offset `0x0`
+7. Wait for flashing to complete
+
+After first boot, configure WiFi through the captive portal (connect to "espnibe" AP, password: `bJhPXchn93Ux`).
 
 ## Housing
 
