@@ -65,12 +65,16 @@ ota:
 
 wifi:
   # WiFi will be configured via captive portal on first boot
+
   ap:
     ssid: "espnibe"
     password: "bJhPXchn93Ux"
 
 captive_portal:
 
+web_server:
+  port: 80
+  
 output:
   # Heartbeat status LED
   - platform: gpio
