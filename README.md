@@ -8,8 +8,8 @@ There are two ways to install the firmware on the board. If you are familiar wit
 
 ### Option 1
 1. Clone this repository
-2. Install the local version of ESPHome using the instructions found in [my other repository](https://github.com/IMMRMKW/ESPHome_ESP32-C6).
-3. Copy the boards folder to `.esphome\build\espnibe`
+2. Inside the repository, create a virtual python environment with `python -m venv .venv`.
+3. Install ESPHome using `pip install esphome==2025.11.2`
 4. Generate a new home assistant api key [here](https://esphome.io/components/api/)
 5. Compile and upload the firmware:
    - On Windows:
