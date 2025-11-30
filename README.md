@@ -66,6 +66,8 @@ Flash the firmware to your ESP32-C6 board using the ESPHome Web Flasher:
 
 After first boot, configure WiFi through the captive portal (connect to "espnibe" AP, password: `bJhPXchn93Ux`).
 
+## Connecting to Wifi
+After flashing your board, leave the board connected to your computer. 
 ## Housing
 
 Assembly instructions for the housing are available [on Thingiverse](https://www.thingiverse.com/thing:7088579).

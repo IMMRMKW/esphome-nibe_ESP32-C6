@@ -30,7 +30,7 @@ jobs:
           python-version: '3.11'
           
       - name: Install ESPHome
-        run: pip install esphome2025.11.2
+        run: pip install esphome==2025.11.2
         
       - name: Compile firmware
         env:
