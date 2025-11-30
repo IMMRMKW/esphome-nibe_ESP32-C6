@@ -6,52 +6,23 @@ esphome:
   name: espnibe
   friendly_name: NIBE_ESP
   platformio_options:
-    board: "elecram_esp32-c6"
-    board_dir: "boards"
-    framework: "arduino"
-    platform: https://github.com/platformio/platform-espressif32.git#develop
-    lib_deps:
-      - "https://github.com/ESP32Async/AsyncTCP.git"
-      - "https://github.com/ESP32Async/ESPAsyncWebServer.git"
-      - "https://github.com/iafonov/multipart-parser-c.git"
-    lib_extra_dirs:
-      - ".esphome\\build\\espnibe\\.piolibdeps\\AsyncTCP-esphome\\"
-      - ".esphome\\build\\espnibe\\.piolibdeps\\ESPAsyncWebserver-esphome\\"
-    lib_ignore:
-      - "AsyncTCP-esphome"
-      - "ESPAsyncWebServer-esphome"
-    lib_ldf_mode: deep
-    platform_packages:
-      - framework-arduinoespressif32 @ https://github.com/espressif/arduino-esp32.git#3.0.2
-      - framework-arduinoespressif32-libs @ https://github.com/espressif/arduino-esp32/releases/download/3.0.2/esp32-arduino-libs-3.0.2.zip
-    
-    build_flags:
-     - -D ARDUINO_USB_MODE=1
-     - -D USE_LOGGER_USB_SERIAL_JTAG=1
-     - -D USE_ARDUINO
+    flash_size: 4MB
 
 esp32:
-  board: elecram_esp32-c6
-  flash_size: 4MB
   variant: ESP32C6
   framework:
-    type: arduino
+    type: esp-idf
 
 external_components:
-  # - source: 
-  #     type: local
-  #     path: components
-  #   components:
-  #     - nibegw
   - source: 
       type: git
-      url: https://github.com/elupus/esphome-nibe
+      url: https://github.com/IMMRMKW/esphome-nibe
 
 
 
 # Enable logging
 logger:
-  level: DEBUG
+#  level: DEBUG
 
 # Enable Home Assistant API
 api:
@@ -65,16 +36,13 @@ ota:
 
 wifi:
   # WiFi will be configured via captive portal on first boot
-
   ap:
     ssid: "espnibe"
     password: "bJhPXchn93Ux"
 
 captive_portal:
 
-web_server:
-  port: 80
-  
+improv_serial:
 output:
   # Heartbeat status LED
   - platform: gpio
@@ -115,10 +83,10 @@ nibegw:
   udp:
     # The target address(s) to send data to. May also be multicast addresses.
     target:
-      - ip: 192.168.1.49
+      - ip: ${ha_ip}
         port: 9999
     source:
-      - 192.168.1.49
+      - ${ha_ip}
     # # List of source address to accept read/write from, may be empty for no filter, but
     # # this is not recommended.
     # source:

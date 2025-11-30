@@ -1,4 +1,0 @@
-substitutions:
-  pin: GPIO6
-
-<<: !include common.yaml

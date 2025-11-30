@@ -30,12 +30,7 @@ jobs:
           python-version: '3.11'
           
       - name: Install ESPHome
-        run: pip install -e ./esphome
-        
-      - name: Setup custom board
-        run: |
-          mkdir -p ~/.platformio/boards
-          cp boards/elecram_esp32-c6.json ~/.platformio/boards/
+        run: pip install esphome2025.11.2
         
       - name: Compile firmware
         env:

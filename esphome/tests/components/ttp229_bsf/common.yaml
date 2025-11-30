@@ -1,8 +1,0 @@
-ttp229_bsf:
-  scl_pin: ${scl_pin}
-  sdo_pin: ${sdo_pin}
-
-binary_sensor:
-  - platform: ttp229_bsf
-    name: TTP229 Channel 0
-    channel: 0
