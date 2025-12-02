@@ -67,6 +67,8 @@ Flash the firmware to your ESP32-C6 board using the ESPHome Web Flasher:
 ## Configuring the WiFi
 After first boot, with your board still connected to your computer, visit [web.esphome.io](https://web.esphome.io/) (or stay on the site, if you went for option 2), click the three dots (⋮), and `Configure WiFi`. In the dropdown menu, select the desired network, and in the password section, type the password. Next, click `CONNECT`.
 
+Note: sometimes you have to click `Configure Wifi` multiple times because `improv_serial` is not detected the first time.
+
 ## Housing
 
 Assembly instructions for the housing are available [on Thingiverse](https://www.thingiverse.com/thing:7088579).

@@ -105,7 +105,7 @@ nibegw:
     # Enable a dummy RMU40 accessory to receive updates
     # to certain registers faster. This should not be
     # enabled if you have an actual RMU40.
-    - RMU40_S4
+    # - RMU40_S4
 
   # Constant replies to certain requests can be made
   constants:
@@ -117,32 +117,32 @@ nibegw:
             0x02, # MODBUS address?
       ]
 
-    # Accessory version response
-    - address: RMU40_S4
-      token: ACCESSORY
-      data: [
-            0xEE, # RMU ?
-            0x03, # RMU version low
-            0x01, # RMU version high
-      ]
+    # # Accessory version response
+    # - address: RMU40_S4
+    #   token: ACCESSORY
+    #   data: [
+    #         0xEE, # RMU ?
+    #         0x03, # RMU version low
+    #         0x01, # RMU version high
+    #   ]
 
-    # Unknown response that nibepi uses
-    - address: RMU40_S4
-      token: RMU_DATA
-      command: RMU_WRITE
-      data: [
-            0x63,
-            0x00,
-      ]
+    # # Unknown response that nibepi uses
+    # - address: RMU40_S4
+    #   token: RMU_DATA
+    #   command: RMU_WRITE
+    #   data: [
+    #         0x63,
+    #         0x00,
+    #   ]
 
-    # Constant fixed temperature to avoid pump going into alarm.
-    - address: RMU40_S4
-      token: RMU_WRITE
-      data: [
-            0x06, # Temperature
-            0x14, # degrees low
-            0x00, # degrees high
-      ]
+    # # Constant fixed temperature to avoid pump going into alarm.
+    # - address: RMU40_S4
+    #   token: RMU_WRITE
+    #   data: [
+    #         0x06, # Temperature
+    #         0x14, # degrees low
+    #         0x00, # degrees high
+    #   ]
 
 # keep commented:
 
