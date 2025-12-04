@@ -16,7 +16,7 @@ esp32:
 external_components:
   - source: 
       type: git
-      url: https://github.com/IMMRMKW/esphome-nibe
+      url: https://github.com/tudstudent/esphome-nibe
 
 
 
