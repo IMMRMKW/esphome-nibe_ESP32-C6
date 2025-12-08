@@ -66,6 +66,10 @@ interval:
       - delay: 100ms
       - output.turn_off: statusLED
 
+button:
+  - platform: restart
+    name: "Nibe ESP Restart Button"
+
 uart:
   id: nibe_uart
   rx_pin: GPIO6
